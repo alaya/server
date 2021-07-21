@@ -1,29 +1,43 @@
 from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import generics, permissions
 from .models import Post, Media, Category, Comment
 from . import serializers
+from .permissions import IsOwnerOrReadOnly
 
-class PostCreate(generics.CreateAPIView):
-	#представление для создания нового объекта 
+class PostList(generics.ListCreateAPIView):
+	#представление будет использоваться для get и post
 	queryset = Post.objects.all()
 	serializer_class = serializers.PostSerializer
+	#разрешение создавать для авторизированных
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-class PostList(generics.ListAPIView):
-	#представление будет использоваться для перечисления всех постов в базе данных
+	def perform_create(self, serializer):
+		serializer.save(user_id = self.request.user)
+
+class PostDetail(generics.RetrieveUpdateDestroyAPIView):
+	#представление будет использовать get, update и delete для одной сущности
 	queryset = Post.objects.all()
 	serializer_class = serializers.PostSerializer
+	#разрешение редактировать/удалять только владельцам поста
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly]
 
-class PostDetail(generics.RetrieveAPIView):
-	#представление будет использоваться для поста в базе данных
-	queryset = Post.objects.all()
-	serializer_class = serializers.PostSerializer
+class CommentList(generics.ListCreateAPIView):
+	queryset = Comment.objects.all()
+	serializer_class = serializers.CommentSerializer
+	#ТОЛЬКО авторизованным
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-class PostUpdate(generics.RetrieveUpdateAPIView):
-	#представление позволяет обновлять записи в БД
-	queryset = Post.objects.all()
-	serializer_class = serializers.PostSerializer
+	def perform_create(self, serializer):
+		serializer.save(user_id = self.request.user)
 
-class PostDelete(generics.RetrieveDestroyAPIView):
-	#представление позволяет удалять записи  в БД
-	queryset = Post.objects.all()
-	serializer_class = serializers.PostSerializer
+class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
+	queryset = Comment.objects.all()
+	serializer_class = serializers.CommentSerializer
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly]
+
+class CategoryDetail(generics.ListAPIView):
+	#список категорий
+	queryset = Category.objects.all()
+	serializer_class = serializers.CategorySerializer

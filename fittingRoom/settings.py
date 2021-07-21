@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+JQUERY_URL = True
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,11 +39,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'register.apps.RegisterConfig',
-    'posts.apps.PostsConfig'
+    'cities_light',
+    'smart_selects',
+    'users.apps.UsersConfig',
+    'posts.apps.PostsConfig',
 ]
-
-AUTH_USER_MODEL = 'register.CustomUser'
+#кастомный пользователь
+AUTH_USER_MODEL = 'users.CustomUser'
+#перенаправление на домашний экран при входе/выходе из системы
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+#инструкция с адресом для сброса пароля придет на почту бэкенда для тестирования
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#для поля аватар
+MEDIA_URL = '/media/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -3,6 +3,8 @@ from django.urls import include, path
 from . import views
 
 urlpatterns = [
+	#добавим кнопку «Log in» в графическое представление API
+	path('api-auth/', include('rest_framework.urls')),
 	#post metod CREATE
 	path('create/', views.UserCreate.as_view(), name = 'create-user'),
 	#get metod READ
