@@ -1,9 +1,13 @@
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from .models import CustomUser
+from cities_light.models import City, Country
+from smart_selects.form_fields import ChainedModelChoiceField
+
 
 class RegistrationForm(forms.ModelForm):
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    #local = ChainedModelChoiceField('users', 'CustomUser', 'country', 'country', True, False, False, False, False)
     class Meta:
         model = CustomUser
         fields = ('name', 'login', 'email', 'password', 'country', 'city')

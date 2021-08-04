@@ -4,7 +4,7 @@ from users.models import CustomUser
 
 class PostSerializer(serializers.ModelSerializer):
     user_id = serializers.ReadOnlyField(source = 'user_id.name')
-    comments = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    comments_id = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     category_id = serializers.ReadOnlyField(source = 'category_id.name')
     
     class Meta:

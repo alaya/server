@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -26,8 +25,6 @@ SECRET_KEY = 'django-insecure-s%f(4_6#7-yo%mp@!h3f+g@o(dn3r_kdd(%4qacn)(swaw%r4^
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-JQUERY_URL = True
 
 # Application definition
 
@@ -47,8 +44,8 @@ INSTALLED_APPS = [
 #кастомный пользователь
 AUTH_USER_MODEL = 'users.CustomUser'
 #перенаправление на домашний экран при входе/выходе из системы
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+#LOGIN_REDIRECT_URL = 'home'
+#LOGOUT_REDIRECT_URL = 'home'
 #инструкция с адресом для сброса пароля придет на почту бэкенда для тестирования
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #для поля аватар
@@ -122,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'UTC'
 
@@ -132,6 +129,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+USE_DJANGO_JQUERY = True
+JQUERY_URL = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -142,3 +141,6 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CITIES_LIGHT_TRANSLATION_LANGUAGES  =  [ 'rus' ]
+CITIES_LIGHT_TRANSLATION_SOURCES = ['http://download.geonames.org/export/dump/alternateNames.zip']
