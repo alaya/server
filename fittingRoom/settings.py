@@ -92,7 +92,7 @@ DATABASES = {
         'USER': 'alaya',
         'PASSWORD': 'fibonachi112358',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
 
