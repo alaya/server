@@ -1,1 +1,1 @@
-web: gunicorn fittingroom.wsgi --log-file -
+web: gunicorn fittingRoom.wsgi --log-file -
