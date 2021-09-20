@@ -9,4 +9,4 @@ class CreatePostForm(forms.ModelForm):
     #local = ChainedModelChoiceField('users', 'CustomUser', 'country', 'country', True, False, False, False, False)
     class Meta:
         model = Post
-        fields = ('shop', 'descriptions', 'price', 'currency')
+        fields = ('shop', 'description', 'price', 'currency')
