@@ -14,5 +14,4 @@ urlpatterns = [
 	path('update/<int:pk>/', views.UserUpdate.as_view(), name = 'update-user'),
 	#delete metod DELETE
 	path('delete/<int:pk>/', views.UserDelete.as_view(), name = 'delete-user'),
-    path('cities_light/api/', include('cities_light.contrib.restframework3')),
 ]
