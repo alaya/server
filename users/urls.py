@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
 	#post metod CREATE
 	path('create/', views.UserCreate.as_view(), name = 'create-user'),
-	path('login',  views.UserList.as_view(), name = 'auth'),
+	path('login/',  views.UserList.as_view(), name = 'auth'),
 	#get metod READ
 	path('', views.UserList.as_view()),
 	#get metod READ
