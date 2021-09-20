@@ -13,6 +13,7 @@ put posts/<int:pk>/
 urlpatterns = [
     #get metod READ
     path('', views.PostList.as_view()),
+    path('create/', views.PostCreate.as_view()),
     path('<int:pk>/', views.PostDetail.as_view()),
     path('comments/', views.CommentList.as_view()),
     path('comments/<int:pk>/', views.CommentDetail.as_view()),

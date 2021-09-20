@@ -3,6 +3,7 @@ from rest_framework import generics, permissions
 from .models import Post, Media, Category, Comment
 from . import serializers
 from .permissions import IsOwnerOrReadOnly
+from .forms import CreatePostForm
 
 class PostList(generics.ListAPIView):
 	#представление будет использоваться для get и post
@@ -20,6 +21,7 @@ class PostCreate(generics.ListCreateAPIView):
 	serializer_class = serializers.PostSerializer
 	#разрешение создавать для авторизированных
 	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+	#form_class = CreatePostForm
 
 	def perform_create(self, serializer):
 		serializer.save(user_id = self.request.user)
