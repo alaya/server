@@ -4,5 +4,5 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
-
-        return obj.owner == request.user
+        #post's owner is the user_id (foreign key)
+        return obj.user_id == request.user

@@ -5,6 +5,7 @@ from posts.models import Post, Comment
 
 class UserSerializer(serializers.ModelSerializer):
     posts = serializers.PrimaryKeyRelatedField(many = True, read_only = True)
+    #related_name
     comments = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     class Meta:
         model = CustomUser

@@ -55,7 +55,8 @@ AUTH_USER_MODEL = 'users.CustomUser'
 #инструкция с адресом для сброса пароля придет на почту бэкенда для тестирования
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #для поля аватар
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -162,6 +163,7 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+CITIES_LIGHT_INCLUDE_COUNTRIES = ['RUS']
 CITIES_LIGHT_TRANSLATION_LANGUAGES  =  [ 'rus' ]
 CITIES_LIGHT_TRANSLATION_SOURCES = ['http://download.geonames.org/export/dump/alternateNames.zip']
 

@@ -18,14 +18,18 @@ class Post(models.Model):
 		return self.description
 
 	class Meta:
+		verbose_name = 'Пост'
+		verbose_name_plural = 'Посты'
 		ordering = ['date']
 
 class Media(models.Model):
-	post_id = models.ForeignKey(Post, on_delete = models.CASCADE)
+	post_id = models.ForeignKey(Post, on_delete = models.CASCADE, related_name='mediaFiles')
 	mediaFile = models.FileField(max_length = 100)
-	
-	def __str__(self):
-		return self.mediaFile
+
+	class Meta:
+		verbose_name = 'Медиа файл'
+		verbose_name_plural = 'Медиа файлы'
+
 
 class Category(models.Model):
 	name = models.CharField("Название категории", max_length = 20)
