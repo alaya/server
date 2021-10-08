@@ -9,4 +9,5 @@ urlpatterns = [
     path('cities_light/api/', include('cities_light.contrib.restframework3')),
     path('users/', include('users.urls')),
     path('posts/', include('posts.urls')),
+    path('friends/', include('friends.urls')),
 ]

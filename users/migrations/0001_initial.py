@@ -10,8 +10,8 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('auth', '0012_alter_user_first_name_max_length'),
-        ('cities_light', '0011_auto_20210924_1420'),
+        ('auth', '__latest__'),
+        ('cities_light', '__latest__'),
     ]
 
     operations = [

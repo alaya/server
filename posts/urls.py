@@ -14,15 +14,20 @@ put posts/<int:pk>/
 '''
 urlpatterns = [
     #get metod READ
+    #list
     path('', views.PostList.as_view()),
-    path('create/', views.PostCreate.as_view()),
-    path('<int:pk>/', views.PostDetail.as_view()),
-    path('<int:pk>/update', views.PostUpdate.as_view()),
-    path('<int:pk>/comments', views.CommentList.as_view()),
+    #Список постов отфильтрованных по городу просматривающего
+    path('list-city/<str:local>/', views.PostListLocalFilter.as_view(), name='postlist-city'),
+    #Список постов пользователя для отображения в профиле
+    path('list-user/<int:pk>/', views.PostListUserFilter.as_view(), name='postlist-user'),
+    path('create/', views.PostCreate.as_view(), name='create-post'),
+    path('<int:pk>/', views.PostDetail.as_view(), name='detail-post'),
+    path('update/<int:pk>', views.PostUpdate.as_view(), name='update-post'),
+    path('<int:pk>/comments', views.CommentList.as_view(), name='comments'),
     #path('comments/', views.CommentList.as_view()),
-    path('comments/<int:pk>/', views.CommentDetail.as_view()),
-    path('categories/', views.CategoryDetail.as_view()),
-    path('media/', views.MediaDetail.as_view()),
+    path('comments/<int:pk>/', views.CommentDetail.as_view(), name='comment-detail'),
+    path('categories/', views.CategoryDetail.as_view(), name='categories'),
+    path('media/', views.MediaDetail.as_view(), name='media-file'),
 ]
 
 if settings.DEBUG:

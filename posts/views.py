@@ -2,40 +2,59 @@ from django.shortcuts import render
 from django.http import Http404, HttpResponseRedirect
 from rest_framework import generics, permissions
 from .models import Post, Media, Category, Comment
+from users.models import CustomUser
 from . import serializers
 from .permissions import IsOwnerOrReadOnly
-from .forms import CreatePostForm, CreateMedia
 
 #Shows ONLY List all of posts without filters
+#представление будет использоваться для get и post
 class PostList(generics.ListAPIView):
-	#представление будет использоваться для get и post
-	queryset = Post.objects.all()
 	serializer_class = serializers.PostSerializer
-	#разрешение создавать для авторизированных
+	#разрешение создавать только для авторизированных
 	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 	def perform_create(self, serializer):
 		serializer.save(user_id = self.request.user)
+
+	def get_queryset(self):
+		return Post.objects.all()	
+
+#Список постов отфильтрованных по городу проживания пользователя
+class PostListLocalFilter(generics.ListAPIView):
+	serializer_class = serializers.PostSerializer
+	def get_queryset(self):
+		post_local = self.kwargs['local']
+		#user_city = CustomUser.objects.get(city=post_local)
+		return Post.objects.filter(local=post_local)
+
+#Список постов пользователя для отображения в профиле
+class PostListUserFilter(generics.ListAPIView):
+	serializer_class = serializers.PostSerializer
+
+	def get_queryset(self):
+		user = self.kwargs['pk']
+		return Post.objects.filter(user_id=user)
 
 #ONLY Create new post
 class PostCreate(generics.CreateAPIView):
-	#представление будет использоваться для get и post
-	queryset = Post.objects.all()
 	serializer_class = serializers.PostSerializer
 	#разрешение создавать для авторизированных
 	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-	form_class = CreatePostForm
 
 	def perform_create(self, serializer):
 		serializer.save(user_id = self.request.user)
 
+	def get_queryset(self):
+		return Post.objects.all()
+
 #Show detail for one object. ONLY READ
 class PostDetail(generics.RetrieveAPIView):
-	#представление будет использовать get, update и delete для одной сущности
-	queryset = Post.objects.all()
 	serializer_class = serializers.PostSerializer
 	#разрешение просматривать только зарегистрированным пользователям
 	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+	def get_queryset(self):
+		return Post.objects.all()
 
 #Read/update/delete post ONLY OWNER
 class PostUpdate(generics.RetrieveUpdateDestroyAPIView):
@@ -49,9 +68,8 @@ class MediaDetail(generics.ListAPIView):
 	#представление будет использовать get, update и delete для одной сущности
 	queryset = Media.objects.all()
 	serializer_class = serializers.MediaSerializer
-	form_class = CreateMedia
 
-#Read and Create comment for ONE POST
+#Read list and Create comment for ONE POST
 class CommentList(generics.ListCreateAPIView):
 	serializer_class = serializers.CommentSerializer
 	#ТОЛЬКО авторизованным

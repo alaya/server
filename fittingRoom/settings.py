@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'smart_selects',
     'users.apps.UsersConfig',
     'posts.apps.PostsConfig',
+    'friends.apps.FriendsConfig',
 ]
 #кастомный пользователь
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -163,7 +164,7 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CITIES_LIGHT_INCLUDE_COUNTRIES = ['RUS']
+CITIES_LIGHT_INCLUDE_COUNTRIES = ['RU', 'US']
 CITIES_LIGHT_TRANSLATION_LANGUAGES  =  [ 'rus' ]
 CITIES_LIGHT_TRANSLATION_SOURCES = ['http://download.geonames.org/export/dump/alternateNames.zip']
 

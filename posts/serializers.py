@@ -13,6 +13,11 @@ class PostSerializer(serializers.ModelSerializer):
         fields = ['id', 'user_id', 'category_id', 'date', 'plus',
         'minus', 'local', 'shop', 'description', 'price', 'currency', 'comments', 'mediaFiles', 'comment_count']
 
+    def to_representation(self, instance):
+        rep = super(PostSerializer, self).to_representation(instance)
+        rep['category_id'] = instance.category_id.name
+        return rep
+
 class MediaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Media 

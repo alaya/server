@@ -7,9 +7,20 @@ from .forms import RegistrationForm, UserCreationForm, UserChangeForm
 
 class UserCreate(generics.ListCreateAPIView):
 	#представление для POST создания нового объекта клиента
-	queryset = CustomUser.objects.all()
 	serializer_class = serializers.UserSerializer
 	form_class = RegistrationForm
+
+	def get_queryset(self):
+		return CustomUser.objects.all()
+
+	'''
+	# проверка пользователя при регистрации на случай если он уже зарегестрирован
+	def perform_create(self, serializer):
+		queryset = CustomUser.objects.filter(email=self.request.email)
+		if queryset.exists():
+			raise ValidationError('You have already signed up')
+		serializer.save(user=self.request.user)
+	'''
 
 class UserList(generics.ListAPIView):
 	#представление будет использоваться для перечисления всех клиентов в базе данных
