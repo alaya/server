@@ -2,6 +2,8 @@ from django.shortcuts import render
 from rest_framework import generics
 from .models import CustomUser
 from . import serializers
+from cities_light.models import City, Country
+from cities_light.contrib.restframework3 import CitySerializer
 from .forms import RegistrationForm, UserCreationForm, UserChangeForm
 
 
@@ -23,7 +25,7 @@ class UserCreate(generics.ListCreateAPIView):
 	'''
 
 class UserList(generics.ListAPIView):
-	#представление будет использоваться для перечисления всех клиентов в базе данных
+	#представление будет использоваться для перечисления всех пользователей в базе данных
 	queryset = CustomUser.objects.all()
 	serializer_class = serializers.UserSerializer
 
@@ -42,3 +44,9 @@ class UserDelete(generics.RetrieveDestroyAPIView):
 	#представление позволяет удалять записи пользователя в БД
 	queryset = CustomUser.objects.all()
 	serializer_class = serializers.UserSerializer
+
+class CityFilter(generics.ListAPIView):
+	serializer_class = CitySerializer
+	def get_queryset(self):
+		return City.objects.filter(country = self.kwargs['pk'])
+		 

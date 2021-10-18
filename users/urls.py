@@ -15,4 +15,6 @@ urlpatterns = [
 	path('update/<int:pk>/', views.UserUpdate.as_view(), name = 'update-user'),
 	#delete metod DELETE
 	path('delete/<int:pk>/', views.UserDelete.as_view(), name = 'delete-user'),
+	#cities filter
+	path('cities_filter/<int:pk>/', views.CityFilter.as_view(), name = 'cities_filter')
 ]
