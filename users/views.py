@@ -46,7 +46,8 @@ class UserDelete(generics.RetrieveDestroyAPIView):
 	serializer_class = serializers.UserSerializer
 
 class CityFilter(generics.ListAPIView):
-	serializer_class = CitySerializer
+	#serializer_class = CitySerializer
+	serializer_class = serializers.CityCustomSerializer
 	def get_queryset(self):
 		return City.objects.filter(country = self.kwargs['pk'])
 		 

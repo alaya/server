@@ -4,6 +4,7 @@ from .forms import RegistrationForm, UserCreationForm
 from cities_light.models import City, Country
 from posts.models import Post, Comment
 
+
 class UserSerializer(serializers.ModelSerializer):
     posts = serializers.PrimaryKeyRelatedField(many = True, read_only = True)
     #related_name
@@ -34,3 +35,8 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(password1)
         user.save()
         return user
+
+class CityCustomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = ['pk', 'name', 'country']
