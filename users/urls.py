@@ -16,5 +16,8 @@ urlpatterns = [
 	#delete metod DELETE
 	path('delete/<int:pk>/', views.UserDelete.as_view(), name = 'delete-user'),
 	#cities filter
-	path('cities_filter/<int:pk>/', views.CityFilter.as_view(), name = 'cities_filter')
+	path('cities_filter/<int:pk>/', views.CityFilter.as_view(), name = 'cities_filter') 
 ]
+
+from rest_framework.authtoken.views import obtain_auth_token 
+path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
