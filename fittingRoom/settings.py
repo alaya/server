@@ -59,8 +59,8 @@ REST_FRAMEWORK = {
 }
 
 #перенаправление на домашний экран при входе/выходе из системы
-#LOGIN_REDIRECT_URL = 'home'
-#LOGOUT_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'posts'
+LOGOUT_REDIRECT_URL = 'login'
 #инструкция с адресом для сброса пароля придет на почту бэкенда для тестирования
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #для поля аватар
