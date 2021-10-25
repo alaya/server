@@ -11,12 +11,13 @@ class UserSerializer(serializers.ModelSerializer):
     comments = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     password1 = serializers.CharField(max_length=128, write_only=True)
     password2 = serializers.CharField(max_length=128, write_only=True)
+    token = serializers.CharField(max_length=255, read_only=True)
     class Meta:
         model = CustomUser
         fields = ['pk', 'name', 'login', 'email', 'country', 'city', 
         'description', 'avatar', 'posts', 'comments', 
         'is_staff', 'is_superuser',
-        'password1', 'password2' ]
+        'password1', 'password2', 'token' ]
 
     def to_representation(self, instance):
         rep = super(UserSerializer, self).to_representation(instance)
