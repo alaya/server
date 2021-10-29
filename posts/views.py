@@ -39,7 +39,6 @@ class PostListUserFilter(generics.ListAPIView):
 class PostCreate(generics.CreateAPIView):
 	serializer_class = serializers.PostSerializer
 	#разрешение создавать для авторизированных
-	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 	def perform_create(self, serializer):
 		serializer.save(user_id = self.request.user)
@@ -51,7 +50,6 @@ class PostCreate(generics.CreateAPIView):
 class PostDetail(generics.RetrieveAPIView):
 	serializer_class = serializers.PostSerializer
 	#разрешение просматривать только зарегистрированным пользователям
-	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 	def get_queryset(self):
 		return Post.objects.all()
@@ -62,7 +60,7 @@ class PostUpdate(generics.RetrieveUpdateDestroyAPIView):
 	queryset = Post.objects.all()
 	serializer_class = serializers.PostSerializer
 	#разрешение редактировать/удалять только владельцам поста
-	permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+	permission_classes = [IsOwnerOrReadOnly]
 
 class MediaDetail(generics.ListAPIView):
 	#представление будет использовать get, update и delete для одной сущности
@@ -73,7 +71,6 @@ class MediaDetail(generics.ListAPIView):
 class CommentList(generics.ListCreateAPIView):
 	serializer_class = serializers.CommentSerializer
 	#ТОЛЬКО авторизованным
-	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 	
 	def perform_create(self, serializer):
 		post_id = self.kwargs['pk']
@@ -89,8 +86,7 @@ class CommentList(generics.ListCreateAPIView):
 class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
 	queryset = Comment.objects.all()
 	serializer_class = serializers.CommentSerializer
-	permission_classes = [permissions.IsAuthenticatedOrReadOnly,
-                          IsOwnerOrReadOnly]
+	permission_classes = [IsOwnerOrReadOnly]
 
 class CategoryDetail(generics.ListAPIView):
 	#список категорий

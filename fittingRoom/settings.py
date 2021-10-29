@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 # settings.py
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
-
+REFRESH_TOKEN_SECRET = str(os.getenv('REFRESH_TOKEN_SECRET'))
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
 DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework.authtoken',
     'cities_light',
     'smart_selects',
     'users.apps.UsersConfig',
@@ -53,10 +52,21 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = 'users.CustomUser'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ]
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        #'users.backends.JWTAuthentication',
+        'users.authentication.SafeJWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated', # make all endpoints private
+    )
 }
+
+CORS_ALLOW_CREDENTIALS = True # to accept cookies via ajax request
+CORS_ORIGIN_WHITELIST = [
+    'https://fitting-room-app.herokuapp.com' # the domain for front-end app(you can add more than 1) 
+]
 
 #перенаправление на домашний экран при входе/выходе из системы
 LOGIN_REDIRECT_URL = '/posts/'
